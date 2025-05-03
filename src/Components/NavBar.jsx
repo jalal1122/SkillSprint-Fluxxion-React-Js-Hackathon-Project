@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiHome, FiBarChart2 } from "react-icons/fi";
+import { FiHome, FiBarChart2, FiInfo, FiMail } from "react-icons/fi";
 import { Tooltip } from "react-tooltip";
 import ThemeContext from "../Context/theme";
 
@@ -48,7 +48,6 @@ const NavBar = () => {
             <span className="hidden sm:inline">Dashboard</span>
           </NavLink>
 
-          {/* You can convert these to NavLink when routes exist */}
           <NavLink
             to="/about"
             className={({ isActive }) =>
@@ -59,8 +58,10 @@ const NavBar = () => {
             data-tooltip-id="about-tooltip"
             data-tooltip-content="Learn more about us"
           >
-            About
+            <FiInfo size={20} />
+            <span className="hidden sm:inline">About</span>
           </NavLink>
+
           <NavLink
             to="/contact"
             className={({ isActive }) =>
@@ -71,7 +72,8 @@ const NavBar = () => {
             data-tooltip-id="contact-tooltip"
             data-tooltip-content="Get in touch"
           >
-            Contact
+            <FiMail size={20} />
+            <span className="hidden sm:inline">Contact</span>
           </NavLink>
         </ul>
       </motion.nav>

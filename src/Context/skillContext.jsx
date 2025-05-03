@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import toast from "react-hot-toast";
 
 const STORAGE_KEY = "skills";
 const SkillsContext = createContext();
 
 export const SkillsProvider = ({ children }) => {
   const [skills, setSkills] = useState(() => {
-    const stored = localStorage.getItem('skills');
+    const stored = localStorage.getItem("skills");
     return stored ? JSON.parse(stored) : [];
   });
 
@@ -14,6 +15,7 @@ export const SkillsProvider = ({ children }) => {
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) setSkills(JSON.parse(stored));
+    toast.success("Skill loaded from localStorage!");
   }, []);
 
   // Sync to localStorage on every change
@@ -24,12 +26,14 @@ export const SkillsProvider = ({ children }) => {
   const addSkill = ({ title, category, progress = 0 }) => {
     const newSkill = { id: uuidv4(), title, category, progress };
     setSkills((prev) => [...prev, newSkill]);
+    toast.success("Skill added successfully!");
   };
 
   const updateSkillProgress = (id, newProgress) => {
     setSkills((prev) =>
       prev.map((s) => (s.id === id ? { ...s, progress: newProgress } : s))
     );
+    toast.success("Skill Updated successfully!");
   };
 
   return (

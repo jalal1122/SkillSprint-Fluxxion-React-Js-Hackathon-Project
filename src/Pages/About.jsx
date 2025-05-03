@@ -6,7 +6,7 @@ const aboutVariants = {
   visible: delay => ({
     opacity: 1,
     y: 0,
-    transition: { delay, duration: 0.6, ease: 'easeInOut' }
+    transition: { delay, duration: 0.4, ease: 'easeInOut' }
   })
 };
 

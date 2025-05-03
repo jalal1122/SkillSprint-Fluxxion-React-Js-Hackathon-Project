@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -24,10 +24,12 @@ const ChartToggle = () => {
   const { skills } = useSkills();
   const [chartType, setChartType] = useState("bar");
 
-  const labels = skills.map((skill) => skill.title);
-  const dataValues = skills.map((skill) => skill.progress);
+  // ✅ Memoize label and data generation to avoid recalculating on every render
+  const labels = useMemo(() => skills.map((skill) => skill.title), [skills]);
+  const dataValues = useMemo(() => skills.map((skill) => skill.progress), [skills]);
 
-  const data = {
+  // ✅ Memoize chart data and options
+  const data = useMemo(() => ({
     labels,
     datasets: [
       {
@@ -45,18 +47,18 @@ const ChartToggle = () => {
         borderColor: "#ffffff10",
       },
     ],
-  };
+  }), [labels, dataValues]);
 
-  const options = {
+  const options = useMemo(() => ({
     responsive: true,
     animation: {
-      duration: 1000,
+      duration: 600,
       easing: "easeInOutCubic",
     },
     plugins: {
       legend: {
         labels: {
-          color: "#374151", // Adjust for light theme
+          color: "#374151",
         },
       },
       tooltip: {
@@ -65,28 +67,19 @@ const ChartToggle = () => {
         bodyColor: "#e5e7eb",
       },
     },
-    scales:
-      chartType === "bar"
-        ? {
-            x: {
-              ticks: {
-                color: "#6b7280",
-              },
-              grid: {
-                color: "#37415120",
-              },
-            },
-            y: {
-              ticks: {
-                color: "#6b7280",
-              },
-              grid: {
-                color: "#37415120",
-              },
-            },
-          }
-        : undefined,
-  };
+    scales: chartType === "bar"
+      ? {
+          x: {
+            ticks: { color: "#6b7280" },
+            grid: { color: "#37415120" },
+          },
+          y: {
+            ticks: { color: "#6b7280" },
+            grid: { color: "#37415120" },
+          },
+        }
+      : undefined,
+  }), [chartType]);
 
   return (
     <div className="mt-6 bg-white dark:bg-zinc-800 rounded-lg p-4 shadow-md flex flex-col items-center">
@@ -96,16 +89,16 @@ const ChartToggle = () => {
         </h3>
         <button
           onClick={() => setChartType(chartType === "bar" ? "pie" : "bar")}
-          className="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
         >
           Switch to {chartType === "bar" ? "Pie" : "Bar"}
         </button>
       </div>
       {skills.length > 0 ? (
         chartType === "bar" ? (
-          <Bar data={data} options={options} className="max-w-3/4 h-auto" />
+          <Bar data={data} options={options} className="w-full max-w-3xl" />
         ) : (
-          <Pie data={data} options={options} className="max-w-3/4 h-auto" />
+          <Pie data={data} options={options} className="w-full max-w-3xl" />
         )
       ) : (
         <p className="text-gray-500 dark:text-gray-300 text-center">

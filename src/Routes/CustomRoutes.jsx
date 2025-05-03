@@ -8,11 +8,13 @@ import Dashboard from "../Pages/Dashboard";
 import NavBar from "../Components/NavBar";
 import About from "../Pages/About";
 import Contact from "../Pages/Contact";
+import NotFound from "../Pages/NotFound";
 
 const CustomRoutes = () => {
   return (
     <div>
       <Routes>
+        <Route path="*" element={<NotFound />}/>
         <Route
           path="/"
           element={

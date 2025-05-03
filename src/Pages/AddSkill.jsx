@@ -1,15 +1,16 @@
 // pages/AddSkill.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {useSkills} from '../Context/skillContext';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSkills } from "../Context/skillContext";
+import { v4 as uuidv4 } from "uuid";
+
 
 const AddSkill = () => {
   const { addSkill } = useSkills();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [progress, setProgress] = useState(0);
 
   const handleSubmit = (e) => {
@@ -22,9 +23,8 @@ const AddSkill = () => {
       progress: parseInt(progress),
     };
 
-    
     addSkill(newSkill);
-    navigate('/');
+    navigate("/");
   };
 
   return (
