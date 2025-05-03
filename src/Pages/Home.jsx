@@ -67,11 +67,6 @@ const Home = () => {
           </Parallax>
         </div>
       </div>
-
-      {/* Uncomment when ready; this will also be lazy-loaded */}
-      {/* <Suspense fallback={<div>Loading Explore...</div>}>
-        <Explore />
-      </Suspense> */}
     </ParallaxProvider>
   );
 };

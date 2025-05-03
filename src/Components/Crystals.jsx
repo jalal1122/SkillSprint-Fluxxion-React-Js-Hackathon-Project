@@ -11,19 +11,19 @@ const Crystals = () => {
       if (mesh) {
         mesh.rotation.y += 0.005;
         mesh.rotation.x += 0.003;
-        mesh.position.y = Math.sin(state.clock.elapsedTime + index) * 0.5;
+        mesh.position.y = Math.sin(state.clock.elapsedTime + index) * 0.5 + 0.5;
       }
     });
   });
 
   const positions = [
-    [2, 1, 0],
-    [-2, -1, -1],
-    [1.5, -2, 1],
-    [-1.5, 2, -1],
-    [0, 0, -2],
-    [3, -1.5, 2],
-    [-3, 1.5, -2],
+    [2, 1.5, 0],
+    [-2, -0.5, -1],
+    [1.5, -1.5, 1],
+    [-1.5, 2.5, -1],
+    [0, 0.5, -2],
+    [3, -1, 2],
+    [-3, 2, -2],
   ];
 
   return (

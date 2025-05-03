@@ -1,9 +1,6 @@
-// pages/AddSkill.jsx
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSkills } from "../Context/skillContext";
-import { v4 as uuidv4 } from "uuid";
-
 
 const AddSkill = () => {
   const { addSkill } = useSkills();
@@ -13,19 +10,23 @@ const AddSkill = () => {
   const [category, setCategory] = useState("");
   const [progress, setProgress] = useState(0);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // useCallback ensures the function is not redefined on every render
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    const newSkill = {
-      id: uuidv4(),
-      title,
-      category,
-      progress: parseInt(progress),
-    };
+      const newSkill = {
+        id: uuidv4(),
+        title,
+        category,
+        progress: parseInt(progress, 10),
+      };
 
-    addSkill(newSkill);
-    navigate("/");
-  };
+      addSkill(newSkill);
+      navigate("/");
+    },
+    [title, category, progress, addSkill, navigate] // Ensures dependencies are stable
+  );
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md mt-20">
