@@ -19,7 +19,7 @@ const Home = () => {
             className="text-4xl sm:text-6xl font-extrabold text-gray-900 dark:text-white drop-shadow"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.5 }}
           >
             Welcome to <span className="text-indigo-500">SkillSprint</span>
           </motion.h1>
