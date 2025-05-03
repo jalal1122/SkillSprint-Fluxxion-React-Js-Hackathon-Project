@@ -37,7 +37,7 @@ function App() {
     theme === "dark" ? (
       <Sun size={20} className="text-yellow-300" />
     ) : (
-      <Moon size={20} className="text-gray-900" />
+      <Moon size={20} className="text-white" />
     );
 
   return (

@@ -11,14 +11,14 @@ const NavBar = () => {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 w-full flex items-center justify-around px-6 py-4 ${bgSwitch} z-20 border-b-4 ${
+        className={`fixed top-0 left-0 w-full flex items-center flex-col sm:flex-row justify-center gap-3 sm:gap-0 sm:justify-around px-6 py-4 ${bgSwitch} z-20 border-b-4 ${
           theme === "dark" ? "border-white" : "border-black"
         }`}
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.5, ease: "easeInOut" }}
       >
-        <span className="text-indigo-500 text-2xl font-bold">SkillSprint</span>
+        <span className="text-indigo-500 text-2xl font-bold transform -translate-x-20 sm:translate-0">SkillSprint</span>
         <ul className="flex items-center gap-6">
           <NavLink
             to="/"
