@@ -9,3 +9,7 @@
       display: none;             /* Chrome, Safari */
     }
   }
+
+  .body{
+    scroll-behavior: smooth;
+  }

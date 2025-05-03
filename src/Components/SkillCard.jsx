@@ -1,14 +1,16 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SkillCard = ({ skill }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-4 hover:shadow-lg transition-all duration-300">
-      <h3 className="text-lg font-semibold">{skill.title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{skill.description}</p>
-      <p className="text-xs text-purple-500 font-medium mt-2">★ {skill.difficulty}</p>
-      <button className="mt-4 px-4 py-2 text-sm bg-purple-600 hover:bg-purple-700 text-white rounded-md transition duration-200">
-        Start
-      </button>
+    <div
+      onClick={() => navigate(`/skill/${skill.id}`)}
+      className="cursor-pointer p-4 border rounded shadow hover:shadow-lg dark:bg-zinc-800 dark:text-white"
+    >
+      <h3 className="text-xl font-semibold">{skill.title}</h3>
+      <p className="text-zinc-500">{skill.category}</p>
+      <p className="mt-2 font-medium">Progress: {skill.progress}%</p>
     </div>
   );
 };
