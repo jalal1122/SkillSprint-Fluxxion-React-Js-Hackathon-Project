@@ -28,6 +28,8 @@ const Dashboard = () => {
   const { skills } = useSkills();
   const [chartType, setChartType] = useState('bar');
   const [refreshKey, setRefreshKey] = useState(Date.now());
+  const [filterCategory, setFilterCategory] = useState('All');
+  const [sortOption, setSortOption] = useState('progress');
 
   if (!skills.length) {
     return (
@@ -41,14 +43,25 @@ const Dashboard = () => {
     );
   }
 
+  // Filter skills based on category
+  const filteredSkills = filterCategory === 'All' ? skills : skills.filter(skill => skill.category === filterCategory);
+
+  // Sort skills by selected option
+  const sortedSkills = filteredSkills.sort((a, b) => {
+    if (sortOption === 'progress') {
+      return b.progress - a.progress; // Sort by progress
+    }
+    return a.title.localeCompare(b.title); // Sort by title
+  });
+
   // Basic stats
-  const total = skills.length;
-  const avg = Math.round(skills.reduce((sum, s) => sum + s.progress, 0) / total);
-  const top = skills.reduce((a, b) => (b.progress > a.progress ? b : a));
-  const low = skills.reduce((a, b) => (b.progress < a.progress ? b : a));
+  const total = sortedSkills.length;
+  const avg = Math.round(sortedSkills.reduce((sum, s) => sum + s.progress, 0) / total);
+  const top = sortedSkills.reduce((a, b) => (b.progress > a.progress ? b : a));
+  const low = sortedSkills.reduce((a, b) => (b.progress < a.progress ? b : a));
 
   // Category distribution
-  const catCounts = skills.reduce((acc, s) => {
+  const catCounts = sortedSkills.reduce((acc, s) => {
     acc[s.category] = (acc[s.category] || 0) + 1;
     return acc;
   }, {});
@@ -67,10 +80,10 @@ const Dashboard = () => {
 
   // Progress by skill
   const barData = {
-    labels: skills.map(s => s.title),
+    labels: sortedSkills.map(s => s.title),
     datasets: [{
       label: 'Progress %',
-      data: skills.map(s => s.progress),
+      data: sortedSkills.map(s => s.progress),
       backgroundColor: '#3B82F6'
     }]
   };
@@ -123,6 +136,33 @@ const Dashboard = () => {
             Refresh
           </button>
         </div>
+      </motion.div>
+
+      {/* Filter and Sort Controls */}
+      <motion.div
+        className="flex justify-between items-center mb-8"
+        variants={fadeInUp}
+        custom={1}
+      >
+        <select
+          className="px-3 py-1 rounded bg-gray-200 dark:bg-zinc-700 dark:text-white"
+          value={filterCategory}
+          onChange={(e) => setFilterCategory(e.target.value)}
+        >
+          <option value="All">All Categories</option>
+          <option value="Programming">Programming</option>
+          <option value="Design">Design</option>
+          <option value="Marketing">Marketing</option>
+        </select>
+
+        <select
+          className="px-3 py-1 rounded bg-gray-200 dark:bg-zinc-700 dark:text-white"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="progress">Sort by Progress</option>
+          <option value="title">Sort by Title</option>
+        </select>
       </motion.div>
 
       {/* Stat Cards */}
