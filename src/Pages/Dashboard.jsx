@@ -93,7 +93,7 @@ const Dashboard = () => {
 
   return (
     <motion.div
-      className="max-w-6xl mx-auto px-4 py-10"
+      className="max-w-6xl mx-auto px-4 py-10 mt-10"
       initial="hidden"
       animate="visible"
     >

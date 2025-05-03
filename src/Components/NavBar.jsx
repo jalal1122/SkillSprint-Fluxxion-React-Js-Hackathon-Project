@@ -49,20 +49,30 @@ const NavBar = () => {
           </NavLink>
 
           {/* You can convert these to NavLink when routes exist */}
-          <li
-            className={`cursor-pointer text-xl hover:text-indigo-500 transition ${textSwitch}`}
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `flex items-center gap-2 text-xl hover:text-indigo-500 transition ${
+                isActive ? "text-indigo-500" : textSwitch
+              }`
+            }
             data-tooltip-id="about-tooltip"
             data-tooltip-content="Learn more about us"
           >
             About
-          </li>
-          <li
-            className={`cursor-pointer text-xl hover:text-indigo-500 transition ${textSwitch}`}
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `flex items-center gap-2 text-xl hover:text-indigo-500 transition ${
+                isActive ? "text-indigo-500" : textSwitch
+              }`
+            }
             data-tooltip-id="contact-tooltip"
             data-tooltip-content="Get in touch"
           >
             Contact
-          </li>
+          </NavLink>
         </ul>
       </motion.nav>
 

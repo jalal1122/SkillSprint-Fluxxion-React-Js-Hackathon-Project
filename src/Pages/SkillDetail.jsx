@@ -44,7 +44,7 @@ const SkillDetail = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white dark:bg-zinc-800 rounded shadow-md">
+    <div className="max-w-2xl mx-auto mt-20 p-6 bg-white dark:bg-zinc-800 rounded shadow-md">
       <h2 className="text-2xl font-bold mb-2">{skill.title}</h2>
       <p className="text-zinc-600 dark:text-zinc-300 mb-6">{skill.category}</p>
 
