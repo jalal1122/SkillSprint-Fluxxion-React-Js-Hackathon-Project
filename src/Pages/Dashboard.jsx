@@ -2,7 +2,7 @@
 import React from 'react';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
-import useSkills from '../CustomHooks/useSkills';
+import {useSkills} from '../Context/skillContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 

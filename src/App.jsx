@@ -1,6 +1,4 @@
 import "./App.css";
-import BackgroundAnimation from "./Components/BackgroundAnimation";
-import Home from "./Pages/Home";
 import ThemeContext from "./Context/theme";
 import { Sun, Moon } from "lucide-react";
 import { useState } from "react";
@@ -21,7 +19,6 @@ function App() {
     <>
       <Router>
         <ThemeContext.Provider value={{ theme, bgSwitch, textSwitch }}>
-          <Home />
           <button
             className="bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow hover:scale-105 transition absolute top-4 right-4 z-50"
             onClick={toggleTheme}
