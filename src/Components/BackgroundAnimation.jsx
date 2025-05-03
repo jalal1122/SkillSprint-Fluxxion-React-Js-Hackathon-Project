@@ -1,38 +1,60 @@
-import React from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars, Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Crystals from './Crystals';
 
 const BackgroundAnimation = () => {
+  const cameraConfig = useMemo(() => ({ position: [0, 0, 15], fov: 60 }), []);
+
   return (
     <div className="absolute inset-0 z-10">
-      <Canvas camera={{ position: [0, 0, 15], fov: 60 }}>
-        {/* Lights */}
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={2} />
-        <pointLight position={[-10, -10, -10]} intensity={2} color="#0ff" />
+      <Canvas
+        camera={cameraConfig}
+        gl={{
+          antialias: false,              // Disable antialiasing for better performance
+          powerPreference: 'high-performance',
+          preserveDrawingBuffer: false,
+          stencil: false,
+          depth: true,
+        }}
+        frameloop="demand"               // Only render when needed (e.g. on state change)
+        dpr={[1, 1.5]}                   // Lower device pixel ratio range
+      >
+        <Suspense fallback={null}>
+          {/* Lights */}
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} />
+          <pointLight position={[-10, -10, -10]} intensity={1.5} color="#0ff" />
 
-        {/* Environment Light Reflections */}
-        <Environment preset="sunset" />
+          {/* Environment */}
+          <Environment preset="sunset" background={false} />
 
-        {/* Stars */}
-        <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
-
-        {/* Glowing Crystals */}
-        <Crystals />
-
-        {/* Bloom Effect for Magical Glow */}
-        <EffectComposer>
-          <Bloom
-            luminanceThreshold={0.1}
-            luminanceSmoothing={0.9}
-            intensity={1.2}
+          {/* Stars */}
+          <Stars
+            radius={80}
+            depth={30}
+            count={3000}          // reduced from 5000
+            factor={3}
+            fade
+            speed={0.8}
           />
-        </EffectComposer>
 
-        {/* Subtle Auto Orbit Movement */}
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1.75} />
+          {/* Crystals */}
+          <Crystals />
+
+          {/* Post-processing */}
+          <EffectComposer disableNormalPass multisampling={0}>
+            <Bloom
+              luminanceThreshold={0.2}
+              luminanceSmoothing={0.75}
+              intensity={0.9}
+            />
+          </EffectComposer>
+
+          {/* OrbitControls */}
+          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1.2} />
+        </Suspense>
       </Canvas>
     </div>
   );

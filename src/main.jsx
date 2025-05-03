@@ -5,9 +5,9 @@ import App from "./App.jsx";
 import { SkillsProvider } from "./Context/skillContext";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <SkillsProvider>
       <App />
     </SkillsProvider>
-  </StrictMode>
+  // </StrictMode>
 );
