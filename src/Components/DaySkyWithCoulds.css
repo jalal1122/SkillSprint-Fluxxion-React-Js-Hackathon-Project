@@ -1,0 +1,51 @@
+/* Mountain stays at bottom */
+.bg-mountain {
+    background: linear-gradient(to top, #2c3e50 0%, #4a6073 100%);
+    clip-path: polygon(0 100%, 10% 60%, 25% 85%, 40% 50%, 55% 75%, 70% 40%, 85% 60%, 100% 30%, 100% 100%);
+  }
+  
+  /* Clouds */
+  .cloud {
+    position: absolute;
+    width: 120px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: floatCloud 80s linear infinite;
+    box-shadow: 30px 10px 0 #fff, 60px 10px 0 #fff;
+  }
+  
+  .cloud-0 { animation-duration: 40s; }
+  .cloud-1 { animation-duration: 600s; }
+  .cloud-2 { animation-duration: 510s; }
+  .cloud-3 { animation-duration: 45s; }
+  .cloud-4 { animation-duration: 65s; }
+  
+  @keyframes floatCloud {
+    0% { transform: translateX(-150px); }
+    100% { transform: translateX(110vw); }
+  }
+  
+  /* Birds */
+  .bird {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border-top: 2px solid black;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    transform: rotate(45deg);
+    animation: flyBird 60s linear infinite;
+  }
+  
+  @keyframes flyBird {
+    0% {
+      transform: translateX(-200px) translateY(200) rotate(45deg);
+    }
+    100% {
+      transform: translateX(110vw) translateY(-30px) rotate(45deg);
+    }
+  }
+  

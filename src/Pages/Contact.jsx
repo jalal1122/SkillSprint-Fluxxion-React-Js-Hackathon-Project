@@ -1,129 +1,149 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
-import emailjs from 'emailjs-com';
-import { useContext } from 'react';
-import ThemeContext from '../Context/theme';
+import React, { useState, useContext } from "react";
+import { motion } from "framer-motion";
+import { Parallax } from "react-parallax";
+import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import ThemeContext from "../Context/theme";
+import emailjs from "emailjs-com";
+import StarryBackground from "../Components/StarryBackground";
+import DaySkyWithClouds from "../Components/DaySkyWithCoulds";
 
-const formVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: delay => ({
+const fadeUp = (delay = 0.2) => ({
+  hidden: { opacity: 0, y: 50 },
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { delay, duration: 0.6, ease: 'easeInOut' }
-  })
-};
+    transition: { duration: 0.7, delay, ease: "easeOut" },
+  },
+});
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const { theme, bgSwitch, textSwitch, fullBgSwitch } = useContext(ThemeContext);
+  
 
-  const { theme, bgSwitch, textSwitch } = useContext(ThemeContext);
-
-  const handleChange = e =>
+  const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const gradientSwitch = theme === 'dark' ? 'from-zinc-800 to-black' : 'from-gray-100 to-white';
-
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(import.meta.env.VITE_APP_SERVICE_KEY, import.meta.env.VITE_APP_TEMPLATE_ID, import.meta.env.VITE_APP_PUBLIC_KEY);
-    
-
-    emailjs.send(
-      `${import.meta.env.VITE_APP_SERVICE_KEY}`,
-      `${import.meta.env.VITE_APP_TEMPLATE_ID}`,
-      form,
-      `${import.meta.env.VITE_APP_PUBLIC_KEY}`
-    )
-    .then(() => {
-      alert('Thank you for reaching out!');
-      setForm({ name: '', email: '', message: '' });
-    })
-    .catch(err => {
-      console.error('Email failed:', err);
-      alert('Oops! Something went wrong.');
-    });
+    emailjs
+      .send(
+        import.meta.env.VITE_APP_SERVICE_KEY,
+        import.meta.env.VITE_APP_TEMPLATE_ID,
+        form,
+        import.meta.env.VITE_APP_PUBLIC_KEY
+      )
+      .then(() => {
+        alert("Thanks for reaching out! I’ll get back to you soon.");
+        setForm({ name: "", email: "", message: "" });
+      })
+      .catch((err) => {
+        console.error("Email failed:", err);
+        alert("Oops! Something went wrong.");
+      });
   };
 
+  const formBgSwitch =
+    theme === "dark"
+      ? "bg-white/10 border-zinc-700"
+      : "bg-white/10 border-white/20";
+
+
+  const inputBgSwitch = theme === "dark" ? "bg-[#0f172a]" : "bg-[#4a6073]";
+
+
   return (
-    <div className={`min-h-screen mt-10 flex flex-col justify-center items-center bg-gradient-to-b px-6 ${gradientSwitch}`}>
-      <motion.div
-        className="max-w-2xl w-full bg-white dark:bg-zinc-900 shadow-xl rounded-lg p-8"
-        initial="hidden"
-        animate="visible"
-        variants={formVariants}
-        custom={0}
-      >
-        <motion.h1
-          className="text-4xl font-bold text-center mb-6 text-indigo-600 dark:text-indigo-400"
-          variants={formVariants}
-          custom={0.2}
-        >
-          Contact Me
-        </motion.h1>
-
-        <motion.form onSubmit={handleSubmit} variants={formVariants} custom={0.4}>
-          <label className="block mb-2 text-gray-700 dark:text-gray-300">Name</label>
-          <input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            className="w-full mb-4 px-4 py-2 border rounded dark:bg-zinc-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-[0_0_20px_rgba(99,102,241,0.5)] transition"
-
-          />
-
-          <label className="block mb-2 text-gray-700 dark:text-gray-300">Email</label>
-          <input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            className="w-full mb-4 px-4 py-2 border rounded dark:bg-zinc-700 dark:text-white"
-          />
-
-          <label className="block mb-2 text-gray-700 dark:text-gray-300">Message</label>
-          <textarea
-            name="message"
-            value={form.message}
-            onChange={handleChange}
-            required
-            rows="4"
-            className="w-full mb-4 px-4 py-2 border rounded dark:bg-zinc-700 dark:text-white"
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 text-white py-2 rounded hover:bg-indigo-600 transition"
+    <div
+      className={`${bgSwitch} ${textSwitch} scroll-snap snap-y snap-mandatory h-screen overflow-y-scroll`}
+    >
+      {fullBgSwitch}
+      {/* <DaySkyWithClouds /> */}
+      <Parallax strength={300}>
+        <section className="snap-start h-screen flex flex-col justify-center items-center px-6 text-center relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeUp(0.1)}
+            className={`max-w-xl w-full rounded-2xl p-10 bg-transparent ${formBgSwitch} border shadow-2xl`}
           >
-            Send Message
-          </button>
-        </motion.form>
+            <motion.h1
+              variants={fadeUp(0.2)}
+              className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-6"
+            >
+              Contact Me
+            </motion.h1>
 
-        {/* Contact Info */}
-        <motion.div
-          className="mt-8 text-center"
-          variants={formVariants}
-          custom={0.6}
-        >
-          <p className="text-gray-800 dark:text-gray-300 mb-2 flex justify-center items-center gap-2">
-            <FaEnvelope className="text-indigo-500" /> mjdevstudio@gmail.com
-          </p>
-          <div className="flex justify-center gap-6 text-2xl mt-4">
-            <a href="https://www.linkedin.com/in/mjdevstudio/" target="_blank" rel="noreferrer">
-              <FaLinkedin className="text-blue-600 hover:scale-110 transition" />
-            </a>
-            <a href="https://github.com/jalal1122" target="_blank" rel="noreferrer">
-              <FaGithub className="hover:text-gray-800 dark:hover:text-white hover:scale-110 transition" />
-            </a>
-            <a href="https://instagram.com/" target="_blank" rel="noreferrer">
-              <FaInstagram className="text-pink-500 hover:scale-110 transition" />
-            </a>
-          </div>
-        </motion.div>
-      </motion.div>
+            <motion.form
+              onSubmit={handleSubmit}
+              variants={fadeUp(0.3)}
+              className="flex flex-col gap-4"
+            >
+              <input
+                name="name"
+                placeholder="Your Name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                className={`px-4 py-3 rounded-lg ${inputBgSwitch} dark:text-white shadow-inner border border-gray-300 dark:border-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+              />
+              <input
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className={`px-4 py-3 rounded-lg ${inputBgSwitch} dark:text-white shadow-inner border border-gray-300 dark:border-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+              />
+              <textarea
+                name="message"
+                placeholder="Write your message..."
+                value={form.message}
+                onChange={handleChange}
+                required
+                rows="5"
+                className={`px-4 py-3 rounded-lg ${inputBgSwitch} dark:text-white shadow-inner border border-gray-300 dark:border-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+              />
+              <button
+                type="submit"
+                className="bg-indigo-500 hover:bg-indigo-600 transition text-white py-3 rounded-lg font-semibold"
+              >
+                Send Message
+              </button>
+            </motion.form>
+
+            <motion.div className="mt-8" variants={fadeUp(0.4)}>
+              <p className={` mb-3 flex justify-center items-center gap-2 ${textSwitch}`}>
+                <FaEnvelope className={`text-indigo-500 `} /> mjdevstudio@gmail.com
+              </p>
+              <div className="flex justify-center gap-6 text-2xl">
+                <a
+                  href="https://www.linkedin.com/in/mjdevstudio/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedin className="text-blue-600 hover:scale-110 transition" />
+                </a>
+                <a
+                  href="https://github.com/jalal1122"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaGithub className="hover:text-gray-800 dark:hover:text-white hover:scale-110 transition" />
+                </a>
+                <a
+                  href="https://www.instagram.com/jalalkhan2084/?igsh=MmowZ215d3pobGUx#"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaInstagram className="text-pink-500 hover:scale-110 transition" />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+      </Parallax>
     </div>
   );
 };
