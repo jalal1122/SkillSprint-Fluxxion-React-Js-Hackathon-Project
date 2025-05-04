@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { MeshDistortMaterial } from '@react-three/drei';
 
@@ -6,7 +6,7 @@ const Crystals = () => {
   const crystalsRef = useRef([]);
   const { viewport } = useThree();
 
-  // Animate crystals
+  // Animation loop for floating/rotating effect
   useFrame((state) => {
     crystalsRef.current.forEach((mesh, index) => {
       if (mesh) {
@@ -17,22 +17,25 @@ const Crystals = () => {
     });
   });
 
-  // Adjust positions based on viewport width (for responsiveness)
-  const basePositions = [
-    [2, 1.5, 0],
-    [-2, -0.5, -1],
-    [1.5, -1.5, 1],
-    [-1.5, 2.5, -1],
-    [0, 0.5, -2],
-    [3, -1, 2],
-    [-3, 2, -2],
-  ];
+  // Memoize positions to prevent recalculation on every render
+  const positions = useMemo(() => {
+    const base = [
+      [2, 1.5, 0],
+      [-2, -0.5, -1],
+      [1.5, -1.5, 1],
+      [-1.5, 2.5, -1],
+      [0, 0.5, -2],
+      [3, -1, 2],
+      [-3, 2, -2],
+    ];
+    return base.map(([x, y, z]) => [
+      (x / 4) * viewport.width,
+      (y / 4) * viewport.height,
+      z,
+    ]);
+  }, [viewport.width, viewport.height]);
 
-  const positions = basePositions.map(([x, y, z]) => [
-    (x / 4) * viewport.width, // scale based on viewport width
-    (y / 4) * viewport.height, // scale based on viewport height
-    z,
-  ]);
+  const scale = viewport.width < 6 ? [0.5, 0.8, 0.5] : [0.7, 1.1, 0.7];
 
   return (
     <>
@@ -41,9 +44,7 @@ const Crystals = () => {
           key={i}
           ref={(el) => (crystalsRef.current[i] = el)}
           position={pos}
-          scale={
-            viewport.width < 6 ? [0.5, 0.8, 0.5] : [0.7, 1.1, 0.7] // Smaller on mobile
-          }
+          scale={scale}
         >
           <dodecahedronGeometry args={[1, 0]} />
           <MeshDistortMaterial
