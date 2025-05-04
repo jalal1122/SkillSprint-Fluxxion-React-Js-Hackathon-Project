@@ -1,6 +1,6 @@
 import React, { useMemo, Suspense, useContext } from "react";
 import { Link } from "react-router-dom";
-import SkillCard from "../components/SkillCard";
+import SkillCard from "../Components/SkillCard";
 import { useSkills } from "../Context/skillContext";
 import ThemeContext from "../Context/theme";
 
@@ -35,7 +35,7 @@ const Explore = () => {
         >
           +
         </Link>
-        
+
         <Suspense
           fallback={<div className="text-center mt-8">Loading charts...</div>}
         >
