@@ -117,7 +117,7 @@ const Contact = () => {
                   className={` mb-3 flex justify-center items-center gap-2 ${textSwitch}`}
                 >
                   <FaEnvelope className={`text-indigo-500 `} />{" "}
-                  mjdevstudio@gmail.com
+                  jk4350649@gmail.com
                 </p>
                 <div className="flex justify-center gap-6 text-2xl">
                   <a
