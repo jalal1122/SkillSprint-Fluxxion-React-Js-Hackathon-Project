@@ -55,7 +55,7 @@ const Contact = () => {
     <>
       {fullBgSwitch}
       <div
-        className={`bg-transparent ${textSwitch} scroll-snap snap-y snap-mandatory h-screen overflow-y-scroll mt-7 `}
+        className={`bg-transparent ${textSwitch} scroll-snap snap-y snap-mandatory h-screen overflow-y-scroll mt-20 md:mt-7 `}
       >
         {/* <DaySkyWithClouds /> */}
         <Parallax strength={300}>
@@ -64,7 +64,7 @@ const Contact = () => {
               initial="hidden"
               whileInView="visible"
               variants={fadeUp(0.1)}
-              className={`max-w-xl w-full rounded-2xl p-10 bg-transparent ${formBgSwitch} border shadow-2xl`}
+              className={`max-w-xl w-full rounded-2xl p-5 md:p-10 bg-transparent ${formBgSwitch} border shadow-2xl`}
             >
               <motion.h1
                 variants={fadeUp(0.2)}

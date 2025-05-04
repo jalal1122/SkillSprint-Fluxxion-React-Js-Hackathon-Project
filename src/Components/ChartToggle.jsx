@@ -100,9 +100,9 @@ const ChartToggle = () => {
       </div>
       {skills.length > 0 ? (
         chartType === "bar" ? (
-          <Bar data={data} options={options} className="w-full max-w-3xl" />
+          <Bar data={data} options={options} className=" max-w-3xl" />
         ) : (
-          <Pie data={data} options={options} className="w-full max-w-3xl" />
+          <Pie data={data} options={options} className=" max-w-3xl" />
         )
       ) : (
         <p className="text-gray-500 dark:text-gray-300 text-center">

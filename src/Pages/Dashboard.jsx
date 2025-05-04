@@ -128,7 +128,7 @@ const Dashboard = () => {
     <>
       {fullBgSwitch}
       <motion.div
-        className="max-w-6xl mx-auto px-4 py-10 mt-10 z-auto"
+        className="max-w-6xl mx-auto px-4 py-10 sm:mt-10 mt-20 z-auto"
         initial="hidden"
         animate="visible"
       >
