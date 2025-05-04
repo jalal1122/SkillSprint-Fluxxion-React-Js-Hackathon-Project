@@ -48,7 +48,7 @@ const Dashboard = () => {
           </motion.p>
           <Link to="/add" aria-label="Add new skill">
             <motion.button
-              className={`mx-auto text-indigo-500 hover:text-white hover:bg-indigo-500 px-3 py-2 rounded-md bg-white/10`}
+              className={`mx-auto text-indigo-500 hover:text-white hover:bg-indigo-500 font-bold px-3 py-2 rounded-md ${theme === "dark" ? "bg-white/10" : "bg-[#0f172a]"}`}
             >
               Add New Skill
             </motion.button>
