@@ -26,7 +26,7 @@ const Dashboard = () => {
   const { skills } = useSkills();
   const [refreshKey, setRefreshKey] = useState(Date.now());
 
-  const { theme, bgSwitch, textSwitch, fullBgSwitch } =
+  const { theme, textSwitch, fullBgSwitch } =
     useContext(ThemeContext);
 
   const elementsBgSwitch =
