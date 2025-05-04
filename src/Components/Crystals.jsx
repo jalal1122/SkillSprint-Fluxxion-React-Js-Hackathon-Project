@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { MeshDistortMaterial } from '@react-three/drei';
 
 const Crystals = () => {
   const crystalsRef = useRef([]);
+  const { viewport } = useThree();
 
-  // Animate crystals (rotation + up-down motion)
+  // Animate crystals
   useFrame((state) => {
     crystalsRef.current.forEach((mesh, index) => {
       if (mesh) {
@@ -16,7 +17,8 @@ const Crystals = () => {
     });
   });
 
-  const positions = [
+  // Adjust positions based on viewport width (for responsiveness)
+  const basePositions = [
     [2, 1.5, 0],
     [-2, -0.5, -1],
     [1.5, -1.5, 1],
@@ -26,6 +28,12 @@ const Crystals = () => {
     [-3, 2, -2],
   ];
 
+  const positions = basePositions.map(([x, y, z]) => [
+    (x / 4) * viewport.width, // scale based on viewport width
+    (y / 4) * viewport.height, // scale based on viewport height
+    z,
+  ]);
+
   return (
     <>
       {positions.map((pos, i) => (
@@ -33,7 +41,9 @@ const Crystals = () => {
           key={i}
           ref={(el) => (crystalsRef.current[i] = el)}
           position={pos}
-          scale={[0.7, 1.1, 0.7]}
+          scale={
+            viewport.width < 6 ? [0.5, 0.8, 0.5] : [0.7, 1.1, 0.7] // Smaller on mobile
+          }
         >
           <dodecahedronGeometry args={[1, 0]} />
           <MeshDistortMaterial
