@@ -20,7 +20,9 @@ const CustomRoutes = () => {
           element={
             <>
               <Home />
+              <div name="explore">
               <Explore />
+              </div>
             </>
           }
         />

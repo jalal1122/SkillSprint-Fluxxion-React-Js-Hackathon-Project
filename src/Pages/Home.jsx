@@ -2,21 +2,31 @@
 import React, { lazy, Suspense, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ParallaxProvider, Parallax } from "react-scroll-parallax";
-// import BackgroundAnimation from "../Components/BackgroundAnimation";
+import { Link } from "react-scroll";
 
 // Lazy-load heavy components
-const BackgroundAnimation = lazy(() => import("../Components/BackgroundAnimation"));
+const BackgroundAnimation = lazy(() =>
+  import("../Components/BackgroundAnimation")
+);
 const NavBar = lazy(() => import("../Components/NavBar"));
 // Explore is off-screen on Home; lazy in case you re-enable it later
 const Explore = lazy(() => import("./Explore"));
 
 const headingVariants = {
   hidden: { opacity: 0, y: -30 },
-  visible: { opacity: 1, y: 0, transition: { delay: 0.5, duration: 0.8, ease: "easeOut" } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.5, duration: 0.8, ease: "easeOut" },
+  },
 };
 const paragraphVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8, ease: "easeOut" } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.6, duration: 0.8, ease: "easeOut" },
+  },
 };
 
 const Home = () => {
@@ -27,7 +37,7 @@ const Home = () => {
 
   return (
     <ParallaxProvider>
-      <div className="relative w-full md:h-screen h-[80vh] overflow-hidden bg-white dark:bg-[#0f172a] transition-colors duration-500">
+      <div className="relative w-full h-screen overflow-hidden  transition-colors duration-500">
         <Suspense fallback={null}>
           <BackgroundAnimation />
         </Suspense>
@@ -37,7 +47,7 @@ const Home = () => {
         </Suspense>
 
         <div className="absolute inset-0 flex flex-col items-center justify-end text-center px-4 pb-20">
-          <Parallax translateY={[-40, 40]} >
+          <Parallax translateY={[-40, 40]}>
             <motion.h1
               className="text-4xl sm:text-6xl font-extrabold text-gray-900 dark:text-white drop-shadow"
               initial="hidden"
@@ -56,14 +66,17 @@ const Home = () => {
               Learn like never before — interactive, immersive, and futuristic.
             </motion.p>
 
-            <motion.button
-              className="mt-8 px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onStartClick}
-            >
-              Start Learning
-            </motion.button>
+            <Link to="explore">
+              <motion.button
+                // to="/explore"
+                className="mt-8 px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onStartClick}
+              >
+                Lets Explore
+              </motion.button>
+            </Link>
           </Parallax>
         </div>
       </div>

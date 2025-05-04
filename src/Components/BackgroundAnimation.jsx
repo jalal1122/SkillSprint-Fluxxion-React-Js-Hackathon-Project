@@ -22,7 +22,7 @@ const BackgroundAnimation = () => {
   const cameraConfig = useMemo(() => ({ position: [0, 0, 15], fov: 60 }), []);
 
   return (
-    <div className="absolute inset-0 z-10">
+    <div className="absolute inset-0">
       <Canvas
         camera={cameraConfig}
         gl={{
