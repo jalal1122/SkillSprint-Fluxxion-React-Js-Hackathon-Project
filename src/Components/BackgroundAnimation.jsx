@@ -1,8 +1,22 @@
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense, useMemo, lazy } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars, Environment } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import Crystals from './Crystals';
+import { OrbitControls, Stars } from '@react-three/drei';
+
+// 🌌 Lazy Load non-critical, heavy components
+const Crystals = lazy(() => import('./Crystals'));
+const Environment = lazy(() =>
+  import('@react-three/drei').then((mod) => ({ default: mod.Environment }))
+);
+const EffectComposer = lazy(() =>
+  import('@react-three/postprocessing').then((mod) => ({
+    default: mod.EffectComposer,
+  }))
+);
+const Bloom = lazy(() =>
+  import('@react-three/postprocessing').then((mod) => ({
+    default: mod.Bloom,
+  }))
+);
 
 const BackgroundAnimation = () => {
   const cameraConfig = useMemo(() => ({ position: [0, 0, 15], fov: 60 }), []);
@@ -12,14 +26,14 @@ const BackgroundAnimation = () => {
       <Canvas
         camera={cameraConfig}
         gl={{
-          antialias: false,              // Disable antialiasing for better performance
+          antialias: false,
           powerPreference: 'high-performance',
           preserveDrawingBuffer: false,
           stencil: false,
           depth: true,
         }}
-        frameloop="demand"               // Only render when needed (e.g. on state change)
-        dpr={[1, 1.5]}                   // Lower device pixel ratio range
+        frameloop="demand"
+        dpr={[1, 1.5]}
       >
         <Suspense fallback={null}>
           {/* Lights */}
@@ -27,23 +41,23 @@ const BackgroundAnimation = () => {
           <pointLight position={[10, 10, 10]} intensity={1.5} />
           <pointLight position={[-10, -10, -10]} intensity={1.5} color="#0ff" />
 
-          {/* Environment */}
-          <Environment preset="sunset" background={false} />
-
           {/* Stars */}
           <Stars
             radius={80}
             depth={30}
-            count={3000}          // reduced from 5000
+            count={3000}
             factor={3}
             fade
             speed={0.8}
           />
 
-          {/* Crystals */}
+          {/* Environment (lazy) */}
+          <Environment preset="sunset" background={false} />
+
+          {/* Crystals (lazy) */}
           <Crystals />
 
-          {/* Post-processing */}
+          {/* Post-processing (lazy) */}
           <EffectComposer disableNormalPass multisampling={0}>
             <Bloom
               luminanceThreshold={0.2}
@@ -52,7 +66,7 @@ const BackgroundAnimation = () => {
             />
           </EffectComposer>
 
-          {/* OrbitControls */}
+          {/* Controls */}
           <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1.2} />
         </Suspense>
       </Canvas>
