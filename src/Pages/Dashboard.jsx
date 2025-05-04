@@ -2,6 +2,7 @@ import React, { useState, useMemo, Suspense, lazy, useContext } from "react";
 import { motion } from "framer-motion";
 import { useSkills } from "../Context/skillContext";
 import ThemeContext from "../Context/theme";
+import { Link } from "react-router-dom";
 import { TextSearch } from "lucide-react";
 
 // Lazy load Chart components
@@ -35,13 +36,25 @@ const Dashboard = () => {
 
   if (!skills.length) {
     return (
-      <motion.p
-        className="text-center mt-16 text-lg dark:text-white"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        No skills added yet.
-      </motion.p>
+      <>
+        {fullBgSwitch}
+        <div className="flex flex-col items-center justify-center min-h-screen text-center gap-5">
+          <motion.p
+            className="text-center mt-10 text-lg text-white font-bold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            No skills added yet.
+          </motion.p>
+          <Link to="/add" aria-label="Add new skill">
+            <motion.button
+              className={`mx-auto text-indigo-500 hover:text-white hover:bg-indigo-500 px-3 py-2 rounded-md bg-white/10`}
+            >
+              Add New Skill
+            </motion.button>
+          </Link>
+        </div>
+      </>
     );
   }
 

@@ -30,10 +30,6 @@ const paragraphVariants = {
 };
 
 const Home = () => {
-  // stable click handler
-  const onStartClick = useCallback(() => {
-    console.log("Start Learning Clicked");
-  }, []);
 
   return (
     <ParallaxProvider>
@@ -66,13 +62,12 @@ const Home = () => {
               Learn like never before — interactive, immersive, and futuristic.
             </motion.p>
 
-            <Link to="explore">
+            <Link to="explore" smooth={true} duration={500}>
               <motion.button
                 // to="/explore"
                 className="mt-8 px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={onStartClick}
               >
                 Lets Explore
               </motion.button>
