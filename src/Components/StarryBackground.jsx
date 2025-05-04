@@ -1,5 +1,5 @@
 import React from "react";
-import "./starryBackground.css"; 
+import "./StarryBackground.css"; 
 
 const StarryBackground = () => {
   return (
