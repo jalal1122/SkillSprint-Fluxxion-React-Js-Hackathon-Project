@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { Bar, Pie } from "react-chartjs-2";
+import ThemeContext from "../Context/theme";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -23,6 +24,9 @@ ChartJS.register(
 const ChartToggle = () => {
   const { skills } = useSkills();
   const [chartType, setChartType] = useState("bar");
+
+  const { textSwitch } =
+      useContext(ThemeContext);
 
   // ✅ Memoize label and data generation to avoid recalculating on every render
   const labels = useMemo(() => skills.map((skill) => skill.title), [skills]);
@@ -58,7 +62,7 @@ const ChartToggle = () => {
     plugins: {
       legend: {
         labels: {
-          color: "#374151",
+          color: "#000",
         },
       },
       tooltip: {
@@ -70,26 +74,26 @@ const ChartToggle = () => {
     scales: chartType === "bar"
       ? {
           x: {
-            ticks: { color: "#6b7280" },
-            grid: { color: "#37415120" },
+            ticks: { color: "#000" },
+            grid: { color: "#000" },
           },
           y: {
-            ticks: { color: "#6b7280" },
-            grid: { color: "#37415120" },
+            ticks: { color: "#000" },
+            grid: { color: "#000" },
           },
         }
       : undefined,
   }), [chartType]);
 
   return (
-    <div className="mt-6 bg-white dark:bg-zinc-800 rounded-lg p-4 shadow-md flex flex-col items-center">
+    <div className={`mt-6 bg-white/10 rounded-lg p-4 shadow-md flex flex-col items-center`}>
       <div className="flex justify-between items-center mb-4 w-3/4">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+        <h3 className={`text-xl font-semibold ${textSwitch}`}>
           Skill Progress Chart
         </h3>
         <button
           onClick={() => setChartType(chartType === "bar" ? "pie" : "bar")}
-          className="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="text-sm px-3 py-1 bg-white/10 text-indigo-500 hover:text-white border-2 border-indigo-500 rounded hover:bg-indigo-500 transition"
         >
           Switch to {chartType === "bar" ? "Pie" : "Bar"}
         </button>

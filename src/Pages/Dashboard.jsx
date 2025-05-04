@@ -125,74 +125,76 @@ const Dashboard = () => {
   );
 
   return (
-    <motion.div
-      className="max-w-6xl mx-auto px-4 py-10 mt-10 z-index-10"
-      initial="hidden"
-      animate="visible"
-    >
+    <>
       {fullBgSwitch}
       <motion.div
-        className="flex justify-between items-center mb-8 "
-        variants={fadeInUp}
-        custom={0}
+        className="max-w-6xl mx-auto px-4 py-10 mt-10 z-auto"
+        initial="hidden"
+        animate="visible"
       >
-        <h2 className="text-3xl font-bold text-center text-indigo-500">
-          📊 Skill Dashboard
-        </h2>
-        <button
-          onClick={() => setRefreshKey(Date.now())}
-          className={`px-4 py-2 rounded text-indigo-500  cursor-pointer border-2 border-indigo-500 bg-white/10 hover:bg-indigo-500 hover:text-white transition duration-300`}
+        <motion.div
+          className="flex justify-between items-center mb-8 "
+          variants={fadeInUp}
+          custom={0}
         >
-          Refresh
-        </button>
-      </motion.div>
-
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-10">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            className={`${elementsBgSwitch}  p-6 rounded-md shadow text-center cursor-pointer`}
-            variants={fadeInUp}
-            custom={i + 1}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
-            }}
+          <h2 className="text-3xl font-bold text-center text-indigo-500">
+            📊 Skill Dashboard
+          </h2>
+          <button
+            onClick={() => setRefreshKey(Date.now())}
+            className={`px-4 py-2 rounded text-indigo-500  cursor-pointer border-2 border-indigo-500 bg-white/10 hover:bg-indigo-500 hover:text-white transition duration-300`}
           >
-            <p className={`text-sm ${textSwitch}`}>{stat.label}</p>
-            <p className="text-xl font-bold text-indigo-500">{stat.value}</p>
+            Refresh
+          </button>
+        </motion.div>
+
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-10">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              className={`${elementsBgSwitch}  p-6 rounded-md shadow text-center cursor-pointer`}
+              variants={fadeInUp}
+              custom={i + 1}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
+              }}
+            >
+              <p className={`text-sm ${textSwitch}`}>{stat.label}</p>
+              <p className="text-xl font-bold text-indigo-500">{stat.value}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2">
+          <motion.div
+            className={`${elementsBgSwitch} p-4 rounded shadow`}
+            variants={fadeInUp}
+            custom={5}
+          >
+            <h3 className={`text-lg font-semibold mb-4 ${textSwitch}`}>
+              Skill Categories
+            </h3>
+            <Suspense fallback={<p>Loading Pie Chart...</p>}>
+              <Pie key={`pie-${refreshKey}`} data={pieData} options={pieOpts} />
+            </Suspense>
           </motion.div>
-        ))}
-      </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        <motion.div
-          className={`${elementsBgSwitch} p-4 rounded shadow`}
-          variants={fadeInUp}
-          custom={5}
-        >
-          <h3 className={`text-lg font-semibold mb-4 ${textSwitch}`}>
-            Skill Categories
-          </h3>
-          <Suspense fallback={<p>Loading Pie Chart...</p>}>
-            <Pie key={`pie-${refreshKey}`} data={pieData} options={pieOpts} />
-          </Suspense>
-        </motion.div>
-
-        <motion.div
-          className={`${elementsBgSwitch} p-4 rounded shadow`}
-          variants={fadeInUp}
-          custom={6}
-        >
-          <h3 className={`text-lg font-semibold mb-4 ${textSwitch}`}>
-            Skill Progress
-          </h3>
-          <Suspense fallback={<p>Loading Bar Chart...</p>}>
-            <Bar key={`bar-${refreshKey}`} data={barData} options={barOpts} />
-          </Suspense>
-        </motion.div>
-      </div>
-    </motion.div>
+          <motion.div
+            className={`${elementsBgSwitch} p-4 rounded shadow`}
+            variants={fadeInUp}
+            custom={6}
+          >
+            <h3 className={`text-lg font-semibold mb-4 ${textSwitch}`}>
+              Skill Progress
+            </h3>
+            <Suspense fallback={<p>Loading Bar Chart...</p>}>
+              <Bar key={`bar-${refreshKey}`} data={barData} options={barOpts} />
+            </Suspense>
+          </motion.div>
+        </div>
+      </motion.div>
+    </>
   );
 };
 

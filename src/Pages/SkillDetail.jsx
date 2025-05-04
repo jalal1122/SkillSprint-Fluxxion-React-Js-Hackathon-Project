@@ -1,5 +1,6 @@
 // pages/SkillDetail.jsx
-import React, { useMemo, useCallback, Suspense, lazy } from 'react';
+import React, { useMemo, useCallback, Suspense, lazy, useContext } from 'react';
+import ThemeContext from '../Context/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSkills } from '../Context/skillContext';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -13,6 +14,9 @@ const SkillDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { skills, updateSkillProgress } = useSkills();
+
+  const { theme, bgSwitch, textSwitch, fullBgSwitch } =
+        useContext(ThemeContext);
 
   // Find skill once
   const skill = useMemo(() => skills.find((s) => s.id === id), [skills, id]);
@@ -47,18 +51,21 @@ const SkillDetail = () => {
       {
         data: [skill.progress, 100 - skill.progress],
         backgroundColor: ['#10B981', '#E5E7EB'],
+        
         borderWidth: 1,
       },
     ],
   }), [skill.progress]);
 
   return (
-    <div className="max-w-2xl mx-auto mt-20 p-6 bg-white dark:bg-zinc-800 rounded shadow-md">
-      <h2 className="text-2xl font-bold mb-2">{skill.title}</h2>
-      <p className="text-zinc-600 dark:text-zinc-300 mb-6">{skill.category}</p>
+    <>
+    {fullBgSwitch}
+    <div className="max-w-2xl mx-auto mt-30 p-6 bg-white/10 rounded shadow-md">
+      <h2 className={`text-2xl font-bold mb-2 ${textSwitch}`}>{skill.title}</h2>
+      <p className={`${theme === "dark" ? "text-black" : "text-white"} mb-6`}>{skill.category}</p>
 
       <div className="mb-6">
-        <label htmlFor="progress" className="block mb-2 font-medium">
+        <label htmlFor="progress" className="block mb-2 font-medium text-indigo-500">
           Progress: {skill.progress}%
         </label>
         <input
@@ -68,7 +75,7 @@ const SkillDetail = () => {
           max="100"
           value={skill.progress}
           onChange={handleChange}
-          className="w-full"
+          className="w-full text-indigo-500 bg-indigo-500"
         />
       </div>
 
@@ -77,7 +84,7 @@ const SkillDetail = () => {
           <Pie data={chartData} />
         </Suspense>
       </div>
-    </div>
+    </div></>
   );
 };
 

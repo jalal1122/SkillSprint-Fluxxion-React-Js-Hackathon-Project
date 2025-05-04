@@ -3,7 +3,7 @@ import "./DaySkyWithCoulds.css"
 
 const DayScene = () => {
     return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 -z-1 w-full h-screen bg-sky-300 overflow-hidden">
+      <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 -z-1 w-full h-screen bg-sky-300 overflow-hidden">
         {/* Mountains */}
         <div className="absolute bottom-0 w-full h-40 bg-mountain z-10"></div>
   
