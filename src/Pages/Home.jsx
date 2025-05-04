@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
     <ParallaxProvider>
-      <div className="relative w-full h-screen overflow-hidden bg-white dark:bg-[#0f172a] transition-colors duration-500">
+      <div className="relative w-full md:h-screen h-[80vh] overflow-hidden bg-white dark:bg-[#0f172a] transition-colors duration-500">
         <Suspense fallback={null}>
           <BackgroundAnimation />
         </Suspense>
