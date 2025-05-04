@@ -20,11 +20,9 @@ const Explore = () => {
 
   return (
     <>
-    {fullBgSwitch}
+      {fullBgSwitch}
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-indigo-500">
-          Your Skills
-        </h1>
+        <h1 className="text-3xl font-bold mb-6 text-indigo-500">Your Skills</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {renderedSkills}
@@ -37,8 +35,7 @@ const Explore = () => {
         >
           +
         </Link>
-
-        {/* Lazy-loaded ChartToggle wrapped with Suspense */}
+        
         <Suspense
           fallback={<div className="text-center mt-8">Loading charts...</div>}
         >

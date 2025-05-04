@@ -31,7 +31,7 @@ const NavBar = () => {
             }
           >
             <FiHome size={20} />
-            <span className="hidden sm:inline">Home</span>
+            <span className="hidden md:inline">Home</span>
           </NavLink>
 
           <NavLink
@@ -45,7 +45,7 @@ const NavBar = () => {
             }
           >
             <FiBarChart2 size={20} />
-            <span className="hidden sm:inline">Dashboard</span>
+            <span className="hidden md:inline">Dashboard</span>
           </NavLink>
 
           <NavLink
@@ -59,7 +59,7 @@ const NavBar = () => {
             data-tooltip-content="Learn more about us"
           >
             <FiInfo size={20} />
-            <span className="hidden sm:inline">About</span>
+            <span className="hidden md:inline">About</span>
           </NavLink>
 
           <NavLink
@@ -73,7 +73,7 @@ const NavBar = () => {
             data-tooltip-content="Get in touch"
           >
             <FiMail size={20} />
-            <span className="hidden sm:inline">Contact</span>
+            <span className="hidden md:inline">Contact</span>
           </NavLink>
         </ul>
       </motion.nav>
