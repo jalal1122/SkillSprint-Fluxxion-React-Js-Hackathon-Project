@@ -26,8 +26,7 @@ const Dashboard = () => {
   const { skills } = useSkills();
   const [refreshKey, setRefreshKey] = useState(Date.now());
 
-  const { theme, textSwitch, fullBgSwitch } =
-    useContext(ThemeContext);
+  const { theme, textSwitch, fullBgSwitch } = useContext(ThemeContext);
 
   const elementsBgSwitch =
     theme === "dark"
@@ -48,7 +47,9 @@ const Dashboard = () => {
           </motion.p>
           <Link to="/add" aria-label="Add new skill">
             <motion.button
-              className={`mx-auto text-indigo-500 hover:text-white hover:bg-indigo-500 font-bold px-3 py-2 rounded-md ${theme === "dark" ? "bg-white/10" : "bg-[#0f172a]"}`}
+              className={`mx-auto text-indigo-500 hover:text-white hover:bg-indigo-500 font-bold px-3 py-2 rounded-md ${
+                theme === "dark" ? "bg-white/10" : "bg-[#0f172a]"
+              }`}
             >
               Add New Skill
             </motion.button>
@@ -117,7 +118,7 @@ const Dashboard = () => {
       plugins: {
         legend: {
           position: "bottom",
-          labels: { color: textSwitch },
+          labels: { color: "#fff", font: { size: 14 }, padding: 20 },
         },
       },
     }),
@@ -129,8 +130,8 @@ const Dashboard = () => {
       responsive: true,
       animation: { duration: 800, easing: "easeOutQuart" },
       scales: {
-        y: { beginAtZero: true, max: 100, ticks: { color: textSwitch } },
-        x: { ticks: { color: textSwitch } },
+        y: { beginAtZero: true, max: 100, ticks: { color: "#3F51B5", font: { size: 12} } },
+        x: { ticks: { color: "#fff", font: { size: 14 } } },
       },
       plugins: { legend: { display: false } },
     }),

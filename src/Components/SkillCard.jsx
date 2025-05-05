@@ -5,7 +5,7 @@ import ThemeContext from "../Context/theme"; // Assuming you have a theme contex
 const SkillCard = React.memo(({ skill }) => {
   const navigate = useNavigate();
 
-  const { theme, bgSwitch, textSwitch, fullBgSwitch } =
+  const { textSwitch } =
     useContext(ThemeContext);
 
   const handleClick = useCallback(() => {
@@ -19,8 +19,8 @@ const SkillCard = React.memo(({ skill }) => {
       onClick={handleClick}
       className={`bg-white/10 cursor-pointer p-4 rounded-lg shadow hover:shadow-lg transition-shadow`}
     >
-      <h3 className={`text-2xl font-semibold ${textSwitch}`}>{title}</h3>
-      <p className={`${theme === "dark" ? "text-black" : "text-white"}`}>{category}</p>
+      <h3 className={`text-2xl font-semibold text-indigo-500`}>{title}</h3>
+      <p className={`${textSwitch}`}>{category}</p>
       <p className="mt-2 font-medium text-indigo-500">Progress: {progress}%</p>
     </div>
   );

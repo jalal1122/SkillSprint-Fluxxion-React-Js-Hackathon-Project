@@ -62,7 +62,7 @@ const ChartToggle = () => {
     plugins: {
       legend: {
         labels: {
-          color: "#000",
+          color: "#fff", font: { size: 14}, padding: 20,
         },
       },
       tooltip: {
@@ -74,11 +74,11 @@ const ChartToggle = () => {
     scales: chartType === "bar"
       ? {
           x: {
-            ticks: { color: "#000" },
+            ticks: { color: "#fff", font: { size: 14} },
             grid: { color: "#000" },
           },
           y: {
-            ticks: { color: "#000" },
+            ticks: { color: "#3F51B5", font: { size: 12} },
             grid: { color: "#000" },
           },
         }

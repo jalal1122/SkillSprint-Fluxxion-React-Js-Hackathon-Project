@@ -9,8 +9,7 @@ const ChartToggle = React.lazy(() => import("../Components/ChartToggle")); // La
 const Explore = () => {
   const { skills } = useSkills();
 
-  const { theme, bgSwitch, textSwitch, fullBgSwitch } =
-    useContext(ThemeContext);
+  const { fullBgSwitch } = useContext(ThemeContext);
 
   // Memoize the skill list rendering
   const renderedSkills = useMemo(
